@@ -1,0 +1,5 @@
+---
+- name: Cleanup everything
+  hosts: localhost
+  roles:
+    - role: clear

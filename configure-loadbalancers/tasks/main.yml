@@ -1,0 +1,15 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+  when: hostvars[inventory_hostname]['just_created']
+
+- name: Install HAProxy
+  apt:
+    name: haproxy
+
+- name: Configure HAProxy
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: restart haproxy

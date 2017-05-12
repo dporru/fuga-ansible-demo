@@ -1,0 +1,5 @@
+---
+- name: Create status.html page
+  template:
+    src: status.html.j2
+    dest: "{{ playbook_dir }}/status.html"

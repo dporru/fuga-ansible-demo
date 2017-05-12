@@ -1,0 +1,21 @@
+---
+- name: Create networks
+  os_network:
+    name: "{{ item.name }}"
+    state: present
+  with_items: "{{ fuga_networks }}"
+
+- name: Create subnets
+  os_subnet:
+    name: "{{ item.name }}"
+    state: present
+    network_name: "{{ item.network_name }}"
+    cidr: "{{ item.cidr }}"
+  with_items: "{{ fuga_subnets }}"
+
+- name: Create router
+  os_router:
+    name: demo_router
+    state: present
+    interfaces: "{{ fuga_subnets|json_query('[*].name') }}"
+    network: external

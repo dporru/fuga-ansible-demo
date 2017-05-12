@@ -1,0 +1,44 @@
+---
+fuga_instances:
+  - name: demo-loadbalancer1
+    image: Debian 8.3.0 - Jessie - 64-bit - Fuga Cloud Based Image
+    flavor: c1.micro
+    nics: "net-name=demo_loadbalancer_network"
+    security_groups:
+      - default
+      - loadbalancer
+
+    meta:
+      group: loadbalancers
+
+  - name: demo-webserver1
+    image: Debian 8.3.0 - Jessie - 64-bit - Fuga Cloud Based Image
+    flavor: c1.micro
+    nics: "net-name=demo_webserver_network"
+    security_groups:
+      - default
+      - webserver
+    meta:
+      group: webservers
+
+  - name: demo-webserver2
+    image: Debian 8.3.0 - Jessie - 64-bit - Fuga Cloud Based Image
+    flavor: c1.micro
+    nics: "net-name=demo_webserver_network"
+    security_groups:
+      - default
+      - webserver
+    meta:
+      group: webservers
+
+fuga_networks:
+  - name: demo_loadbalancer_network
+  - name: demo_webserver_network
+
+fuga_subnets:
+  - name: demo_loadbalancer_subnet
+    network_name: demo_loadbalancer_network
+    cidr: 192.168.0.0/24
+  - name: demo_webserver_subnet
+    network_name: demo_webserver_network
+    cidr: 192.168.1.0/24

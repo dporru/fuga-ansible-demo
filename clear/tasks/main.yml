@@ -1,0 +1,54 @@
+---
+- name: Remove instances
+  os_server:
+    name: "{{ item.name }}"
+    state: absent
+  with_items: "{{ fuga_instances }}"
+
+- name: Remove router
+  os_router:
+    name: demo_router
+    state: absent
+
+- name: Remove subnets
+  os_subnet:
+    name: "{{ item.name }}"
+    state: absent
+  with_items: "{{ fuga_subnets }}"
+
+- name: Remove networks
+  os_network:
+    name: "{{ item.name }}"
+    state: absent
+  with_items: "{{ fuga_networks }}"
+
+- name: Remove loadbalancer security group
+  os_security_group:
+    name: loadbalancer
+    state: absent
+
+- name: Remove webserver security group
+  os_security_group:
+    name: webserver
+    state: absent
+
+- name: Remove SSH access to default security group
+  os_security_group_rule:
+    security_group: default
+    protocol: tcp
+    port_range_min: 22
+    port_range_max: 22
+    remote_ip_prefix: 0.0.0.0/0
+    state: absent
+
+- name: Remove ping for default security group
+  os_security_group_rule:
+    security_group: default
+    protocol: icmp
+    remote_ip_prefix: 0.0.0.0/0
+    state: absent
+
+- name: Remove SSH key
+  os_keypair:
+    name: demo_key
+    state: absent

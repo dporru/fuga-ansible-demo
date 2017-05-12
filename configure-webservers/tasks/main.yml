@@ -1,0 +1,20 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+  when: hostvars[inventory_hostname]['just_created']
+
+- name: Install nginx
+  apt:
+    name: nginx
+
+- name: Configure nginx
+  template:
+    src: default.j2
+    dest: /etc/nginx/sites-available/default
+  notify: restart nginx
+
+- name: Create webpage
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html

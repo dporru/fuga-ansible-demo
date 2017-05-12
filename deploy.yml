@@ -1,0 +1,51 @@
+---
+- name: Networking
+  hosts: localhost
+  roles:
+    - role: networking
+  tags:
+    - networking
+
+- name: Security
+  hosts: localhost
+  roles:
+    - role: security
+  tags:
+    - security
+
+- name: Launch Fuga instances
+  hosts: localhost
+  roles:
+    - role: launch-instances
+  tags:
+    - launch
+    - configure
+
+- name: Create status page
+  hosts: localhost
+  roles:
+    - role: status
+  tags:
+    - status
+
+- name: Configure loadbalancers
+  hosts: loadbalancers
+  remote_user: debian
+  become: yes
+  become_method: sudo
+  roles:
+    - role: configure-loadbalancers
+  tags:
+    - configure
+    - loadbalancers
+
+- name: Configure webservers
+  hosts: webservers
+  remote_user: debian
+  become: yes
+  become_method: sudo
+  roles:
+    - role: configure-webservers
+  tags:
+    - configure
+    - webservers

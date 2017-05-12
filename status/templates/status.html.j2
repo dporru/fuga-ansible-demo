@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <title>Loadbalancer status</title>
+        <script>
+            setTimeout(function(){
+                location.reload();
+            }, 1000);
+        </script>
+    </head>
+    <body>
+        <iframe src="http://{{ hostvars['demo-loadbalancer1']['ansible_host'] }}/" style="width: 100%; height: 100%; border: 0;"></iframe>
+    </body>
+</html>

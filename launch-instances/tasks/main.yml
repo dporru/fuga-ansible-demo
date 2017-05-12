@@ -1,0 +1,31 @@
+---
+- name: Launch instances
+  os_server:
+    name: "{{ item.name }}"
+    state: present
+    key_name: "demo_key"
+    nics: "{{ item.nics }}"
+    image: "{{ item.image }}"
+    flavor: "{{ item.flavor }}"
+    security_groups: "{{ item.security_groups }}"
+  with_items: "{{ fuga_instances }}"
+  register: fuga_hosts
+
+- name: Add instances to Ansible
+  no_log: True
+  add_host:
+    name: "{{ item['openstack']['name'] }}"
+    groups: "{{ item['item']['meta']['group'] }}"
+    ansible_host: "{{ item['openstack']['accessIPv4'] }}"
+    external_ip: "{{ item['openstack']['public_v4'] }}"
+    internal_ip: "{{ item['openstack']['private_v4'] }}"
+    just_created: "{{ item['changed'] }}"
+  with_items: "{{ fuga_hosts.results }}"
+
+- name: Reset known hosts
+  no_log: True
+  known_hosts:
+    name: "{{ item['openstack']['accessIPv4'] }}"
+    state: absent
+  when: item['changed']
+  with_items: "{{ fuga_hosts.results }}"
