@@ -1,6 +1,6 @@
-# DHPA Techfest 2017 Fuga Demo
+# Fuga Ansible Demo
 
-Source code for the Demo given by Fuga at the DHPA Techfest 2017.
+Source code for the Demo given by the Fuga team to deploy instances using Ansible.
 
 ## Demo
 
