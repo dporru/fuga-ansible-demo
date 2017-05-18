@@ -8,7 +8,12 @@ The demo starts with an empty Fuga account and creates networking, security grou
 
 ## Running the demo
 
-If you want to run the demo yourself you need to have ansible installed and a working Fuga account, you can create a Fuga account on https://fuga.io/.
+If you want to run the demo yourself you need to have `ansible` and `shade` installed and a working Fuga account, you can create a Fuga account on https://fuga.io/.
+
+```bash
+$ sudo pip install ansible shade
+```
+
 Clone this repo:
 
 ```bash
